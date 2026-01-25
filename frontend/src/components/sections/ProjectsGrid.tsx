@@ -21,6 +21,7 @@ export function ProjectsGrid({ projects, onProjectBuy, onProjectDemo }: Projects
             project={project}
             onBuyClick={onProjectBuy}
             onDemoClick={onProjectDemo}
+            navigationRoot={project.id}
           />
         ))}
       </div>

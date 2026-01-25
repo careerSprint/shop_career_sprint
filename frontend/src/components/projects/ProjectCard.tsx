@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Star, CheckCircle } from "lucide-react"
 import { LucideIcon } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export interface Project {
   id: string
@@ -21,9 +22,12 @@ interface ProjectCardProps {
   project: Project
   onBuyClick?: (project: Project) => void
   onDemoClick?: (project: Project) => void
+  navigationRoot: string
 }
 
-export function ProjectCard({ project, onBuyClick, onDemoClick }: ProjectCardProps) {
+export function ProjectCard({ project, onBuyClick, onDemoClick, navigationRoot }: ProjectCardProps) {
+
+  const router = useRouter(); 
   return (
     <Card className="group hover:shadow-lg transition-shadow duration-300">
       <CardHeader>
@@ -71,7 +75,7 @@ export function ProjectCard({ project, onBuyClick, onDemoClick }: ProjectCardPro
           </Link>
           <Button 
             variant="outline"
-            onClick={() => onDemoClick?.(project)}
+            onClick={() => router.push(`/${navigationRoot}`)}
           >
             Live Demo
           </Button>

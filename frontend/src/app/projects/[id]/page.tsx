@@ -11,10 +11,13 @@ import { projects } from "@/data/projects"
 import { ProjectFeatures } from "@/components/projects/ProjectFeatures"
 import { ProjectPricing } from "@/components/projects/ProjectPricing"
 import { ProjectTechStack } from "@/components/projects/ProjectTechStack"
+import { useRouter } from "next/navigation"
 
 export default function ProjectDetailPage() {
   const params = useParams()
   const projectId = params.id as string
+
+  const router = useRouter();
   
   const project = projects.find(p => p.id === projectId)
   const techTags = ["Next.js", "React", "TypeScript", "Tailwind", "Node", "Stripe"]
@@ -93,7 +96,7 @@ export default function ProjectDetailPage() {
                 <Button
                   variant="outline"
                   className="rounded-full border-neutral-200 bg-white text-sm text-neutral-900 shadow-sm hover:bg-neutral-50"
-                  onClick={handleLivePreview}
+                  onClick={() => router.push(`/${project.id}`)}
                   type="button"
                 >
                   Live Preview
