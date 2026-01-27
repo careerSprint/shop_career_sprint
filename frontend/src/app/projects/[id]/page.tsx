@@ -13,6 +13,14 @@ import { ProjectPricing } from "@/components/projects/ProjectPricing"
 import { ProjectTechStack } from "@/components/projects/ProjectTechStack"
 import { useRouter } from "next/navigation"
 
+type galleryTypes = {
+  [key: string]: {
+    label: string,
+    alt: string,
+    src: string
+  }[]
+}
+
 export default function ProjectDetailPage() {
   const params = useParams()
   const projectId = params.id as string
@@ -43,6 +51,86 @@ export default function ProjectDetailPage() {
       alt: "Sharwings ledlights category listing",
     },
   ]
+
+  const gallery : galleryTypes = {
+    "crm":  [
+    {
+      label: "CRM Dashboard",
+      src: "/previews/crm/crm_admin_db.png",
+      alt: "crm main admin dashboard view",
+    },
+    {
+      label: "Clients Management",
+      src: "/previews/crm/crm_clients_list.png",
+      alt: "crm clients management list view",
+    },
+    {
+      label: "Clients Form",
+      src: "/previews/crm/crm_create_client_form.png",
+      alt: "crm clients create form",
+    },
+    {
+      label: "Clients Details View",
+      src: "/previews/crm/crm_client_single_preview.png",
+      alt: "crm clients detailed single view page",
+    },
+    {
+      label: "Leads Listing",
+      src: "/previews/crm/crm_leads_list.png",
+      alt: "crm leads overview page",
+    },
+    {
+      label: "Leads Form",
+      src: "/previews/crm/crm_create_lead_form.png",
+      alt: "crm create lead form view",
+    },
+    {
+      label: "Opportunities Listing",
+      src: "/previews/crm/crm_opportunity_list.png",
+      alt: "crm opportunities listing page view",
+    },
+    {
+      label: "Opportunities Form",
+      src: "/previews/crm/crm_create_opportunity_form.png",
+      alt: "crm opportunities listing page view",
+    },
+    {
+      label: "Quotation List",
+      src: "/previews/crm/crm_quotation_list.png",
+      alt: "crm quotation listing page view",
+    },
+    {
+      label: "Quotation Form",
+      src: "/previews/crm/crm_quotation_form.png",
+      alt: "crm opportunities listing page view",
+    },
+    {
+      label: "Invoice Management",
+      src: "/previews/crm/crm_invoice_list.png",
+      alt: "crm invoice management page view",
+    },
+    {
+      label: "Invoice Management Form",
+      src: "/previews/crm/crm_create_invoice_form.png",
+      alt: "crm invoice management page view",
+    },
+        {
+      label: "Invoice Preview",
+      src: "/previews/crm/crm_invoice_preview.png",
+      alt: "crm invoice preview page view",
+    },
+    {
+      label: "Kanban Board (ticket listing & management)",
+      src: "/previews/crm/crm_kanban_board.png",
+      alt: "crm kanban board for ticket management view",
+    },
+    {
+      label: "Documents storage and management",
+      src: "/previews/crm/crm_documents_upload_section.png",
+      alt: "crm document storage and mangaement view"
+    }
+  ]
+  }
   
   if (!project) {
     return (
@@ -115,7 +203,7 @@ export default function ProjectDetailPage() {
       <section id="preview" className="container mx-auto px-4 pb-16">
         <h2 className="mb-6 text-2xl font-semibold text-neutral-900">Live Preview</h2>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {previewImages.map((image) => (
+          {(gallery[projectId]).map((image) => (
             <figure
               key={image.src}
               className="overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 text-white shadow-lg"

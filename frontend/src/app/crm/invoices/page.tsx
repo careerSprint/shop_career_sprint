@@ -108,7 +108,7 @@ export default function InvoicesPage() {
           <h1 className="text-4xl font-bold text-foreground">Invoices</h1>
           <p className="text-muted-foreground mt-2">Manage your billing and payments</p>
         </div>
-        <Link href="/invoices/new">
+        <Link href="/crm/invoices/new">
           <Button className="gap-2">
             <Plus className="h-4 w-4" />
             Create Invoice
