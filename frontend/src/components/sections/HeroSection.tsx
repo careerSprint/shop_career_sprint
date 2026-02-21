@@ -39,7 +39,7 @@ export function HeroSection({
           {/* Left — headline + subtitle + buttons */}
           <div className="max-w-4xl">
             <motion.h1
-              className="text-6xl md:text-7xl lg:text-8xl font-bold text-neutral-900 dark:text-white leading-[1.05] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-neutral-900 dark:text-white leading-[1.08] md:leading-[1.05] tracking-tight"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -57,14 +57,14 @@ export function HeroSection({
             </motion.p>
 
             <motion.div
-              className="mt-8 flex items-center gap-4 flex-wrap"
+              className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.22 }}
             >
               <Button
                 size="lg"
-                className="bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 rounded-md px-7 font-medium"
+                className="w-full sm:w-auto bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 rounded-md px-7 font-medium"
                 onClick={onPrimaryClick}
               >
                 {primaryButtonText}
@@ -72,7 +72,7 @@ export function HeroSection({
               <Button
                 size="lg"
                 variant="outline"
-                className="border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-md px-7 font-medium bg-white dark:bg-transparent"
+                className="w-full sm:w-auto border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-md px-7 font-medium bg-white dark:bg-transparent"
                 onClick={onSecondaryClick}
               >
                 {secondaryButtonText}

@@ -30,10 +30,10 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
       <div className="container mx-auto px-6 pt-6 pb-0">
 
         {/* ── Tab bar ── */}
-        <div className="flex items-center gap-1 border border-neutral-200 dark:border-neutral-800 rounded-xl bg-neutral-100 dark:bg-neutral-900 px-4 py-2.5 overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none]">
+        <div className="flex items-center gap-1 border border-neutral-200 dark:border-neutral-800 rounded-xl bg-neutral-100 dark:bg-neutral-900 px-3 py-2.5 overflow-x-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none]">
 
-          {/* macOS dots */}
-          <div className="flex items-center gap-1.5 mr-5 shrink-0">
+          {/* macOS dots — hidden on mobile to save space */}
+          <div className="hidden sm:flex items-center gap-1.5 mr-5 shrink-0">
             <div className="h-3 w-3 rounded-full bg-rose-500" />
             <div className="h-3 w-3 rounded-full bg-amber-400" />
             <div className="h-3 w-3 rounded-full bg-emerald-500" />
@@ -44,7 +44,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
             <button
               key={project.id}
               onClick={() => setActiveId(project.id)}
-              className={`px-4 py-1.5 text-sm rounded-lg transition-colors font-medium whitespace-nowrap shrink-0 ${
+              className={`px-2.5 sm:px-4 py-1.5 text-xs sm:text-sm rounded-lg transition-colors font-medium whitespace-nowrap shrink-0 ${
                 activeId === project.id
                   ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
                   : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
@@ -57,9 +57,9 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
           {/* More → */}
           <Link
             href="/projects"
-            className="ml-2 flex items-center gap-1 whitespace-nowrap shrink-0 rounded-lg px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-white dark:hover:bg-neutral-800 transition-colors"
+            className="ml-1 flex items-center gap-1 whitespace-nowrap shrink-0 rounded-lg px-2.5 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-white dark:hover:bg-neutral-800 transition-colors"
           >
-            More <ArrowRight className="h-3.5 w-3.5" />
+            More <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
           </Link>
         </div>
 
@@ -87,14 +87,19 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
               </div>
 
               {/* Preview area */}
-              <div className="relative w-full overflow-hidden" style={{ height: "520px" }}>
+              <div className="preview-wrap relative w-full overflow-hidden" style={{ height: "300px" }}>
+                <style>{`
+                  @media (min-width: 640px) { .preview-wrap { height: 420px !important; } .preview-iframe { transform: scale(0.56) !important; } }
+                  @media (min-width: 1024px) { .preview-wrap { height: 520px !important; } .preview-iframe { transform: scale(0.72) !important; } }
+                `}</style>
                 {isLive ? (
                   <iframe
                     src={active.previewUrl}
+                    className="preview-iframe"
                     style={{
                       width: "1440px",
                       height: "900px",
-                      transform: "scale(0.72)",
+                      transform: "scale(0.28)",
                       transformOrigin: "top left",
                       pointerEvents: "none",
                       border: "none",
@@ -115,42 +120,46 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
               </div>
 
               {/* Project info + actions */}
-              <div className="px-6 py-5 border-t border-neutral-100 dark:border-neutral-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-start gap-4">
+              <div className="px-4 sm:px-6 py-4 sm:py-5 border-t border-neutral-100 dark:border-neutral-800 flex flex-col gap-4">
+                {/* Title + description row */}
+                <div className="flex items-start gap-3">
                   <div className="p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 shrink-0">
                     <active.icon className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-semibold text-neutral-900 dark:text-white text-base">{active.title}</h3>
+                      <h3 className="font-semibold text-neutral-900 dark:text-white text-sm sm:text-base">{active.title}</h3>
                       <Badge variant="secondary" className="text-xs">{active.badge}</Badge>
                       <div className="flex items-center gap-1">
                         <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
                         <span className="text-xs text-neutral-500">{active.rating}</span>
                       </div>
                     </div>
-                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400 max-w-xl line-clamp-2">{active.description}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 line-clamp-2">{active.description}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0">
-                  <div className="text-right mr-2">
-                    <div className="font-bold text-neutral-900 dark:text-white">{active.price}</div>
+                {/* Price + actions row */}
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <div className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base">{active.price}</div>
                     <div className="text-xs text-neutral-400">one-time</div>
                   </div>
-                  <Link
-                    href={`/projects/${active.id}`}
-                    className="flex items-center gap-1.5 rounded-lg bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
-                  >
-                    View Details <ChevronRight className="h-4 w-4" />
-                  </Link>
-                  <button
-                    onClick={() => isLive && window.open(active.previewUrl, "_blank", "noopener,noreferrer")}
-                    disabled={!isLive}
-                    className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-5 py-2.5 text-sm font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    {isLive ? "Live Demo" : "Coming Soon"}
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/projects/${active.id}`}
+                      className="flex items-center gap-1 rounded-lg bg-neutral-900 px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
+                    >
+                      View Details <ChevronRight className="h-3.5 w-3.5" />
+                    </Link>
+                    <button
+                      onClick={() => isLive && window.open(active.previewUrl, "_blank", "noopener,noreferrer")}
+                      disabled={!isLive}
+                      className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      {isLive ? "Live Demo" : "Coming Soon"}
+                    </button>
+                  </div>
                 </div>
               </div>
 
