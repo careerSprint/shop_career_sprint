@@ -28,8 +28,8 @@ export default function Home() {
         <HeroSection
           title={
             <>
-              Premium Full-Stack
-              <span className="text-primary"> Projects</span>
+              Build Full apps in days,
+              <span className="text-primary"> not months</span>
             </>
           }
           subtitle="Ready-to-deploy production applications built with modern technologies. Save hundreds of development hours with our battle-tested solutions."
