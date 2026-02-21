@@ -32,14 +32,14 @@ export function HeroSection({
   onSecondaryClick,
 }: HeroSectionProps) {
   return (
-    <section className="bg-white min-h-[80vh] flex items-center">
+    <section className="bg-white dark:bg-neutral-950 min-h-[80vh] flex items-center">
       <div className="container mx-auto px-6 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-12 items-end">
 
           {/* Left — headline + subtitle + buttons */}
           <div className="max-w-4xl">
             <motion.h1
-              className="text-6xl md:text-7xl lg:text-8xl font-bold text-neutral-900 leading-[1.05] tracking-tight"
+              className="text-6xl md:text-7xl lg:text-8xl font-bold text-neutral-900 dark:text-white leading-[1.05] tracking-tight"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -48,7 +48,7 @@ export function HeroSection({
             </motion.h1>
 
             <motion.p
-              className="mt-6 text-base text-neutral-500 max-w-md leading-relaxed"
+              className="mt-6 text-base text-neutral-500 dark:text-neutral-400 max-w-md leading-relaxed"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.12 }}
@@ -64,7 +64,7 @@ export function HeroSection({
             >
               <Button
                 size="lg"
-                className="bg-neutral-900 text-white hover:bg-neutral-800 rounded-md px-7 font-medium"
+                className="bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 rounded-md px-7 font-medium"
                 onClick={onPrimaryClick}
               >
                 {primaryButtonText}
@@ -72,7 +72,7 @@ export function HeroSection({
               <Button
                 size="lg"
                 variant="outline"
-                className="border-neutral-300 text-neutral-900 hover:bg-neutral-100 rounded-md px-7 font-medium bg-white"
+                className="border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-md px-7 font-medium bg-white dark:bg-transparent"
                 onClick={onSecondaryClick}
               >
                 {secondaryButtonText}
@@ -87,7 +87,7 @@ export function HeroSection({
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.35 }}
           >
-            <p className="text-neutral-500 text-sm leading-snug">
+            <p className="text-neutral-500 dark:text-neutral-400 text-sm leading-snug">
               Trusted by 500+ founders,<br />developers and creators
             </p>
             <div className="flex items-center gap-2 mt-1">
@@ -95,7 +95,7 @@ export function HeroSection({
                 {avatars.map((av, i) => (
                   <div
                     key={i}
-                    className={`h-8 w-8 rounded-full ${av.color} border-2 border-white flex items-center justify-center text-[11px] font-semibold text-white`}
+                    className={`h-8 w-8 rounded-full ${av.color} border-2 border-white dark:border-neutral-950 flex items-center justify-center text-[11px] font-semibold text-white`}
                   >
                     {av.initial}
                   </div>

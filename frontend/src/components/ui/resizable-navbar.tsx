@@ -234,7 +234,7 @@ export const NavbarLogo = () => {
   return (
     <a
       href="/"
-      className="relative z-20 flex items-center space-x-2 px-3 py-2 text-sm font-normal text-black"
+      className="relative z-20 flex items-center space-x-2 px-3 py-2 text-sm font-normal text-black dark:text-white"
     >
       <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
         <span className="text-primary-foreground font-bold text-lg">S</span>

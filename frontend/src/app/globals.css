@@ -58,6 +58,14 @@
 }
 
 @layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
   .bg-grid-slate {
     background-image: linear-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px),
       linear-gradient(90deg, rgba(15, 23, 42, 0.08) 1px, transparent 1px);

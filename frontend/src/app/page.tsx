@@ -21,7 +21,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-neutral-950">
       <SiteNavbar />
 
       <main>
@@ -33,8 +33,8 @@ export default function Home() {
             </>
           }
           subtitle="Turn your idea into a live product in days, not months. No hiring, no delays — just a production-ready app so you can start selling faster."
-          primaryButtonText="Browse Projects"
-          secondaryButtonText="View Demo"
+          primaryButtonText="Build Custom Project"
+          secondaryButtonText="Hire Talent"
           onPrimaryClick={handleBrowseProjects}
           onSecondaryClick={handleViewDemo}
         />
