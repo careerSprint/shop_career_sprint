@@ -6,19 +6,11 @@ import { WhyChooseUsBento } from "@/components/why-choose-us-bento"
 import GlobeDemo from "@/components/globe-demo"
 import SiteFooter from "@/components/site-footer"
 import { useProjects } from "@/hooks/useProjects"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
+  const router = useRouter()
   const { projects, handleProjectBuy, handleProjectDemo } = useProjects()
-
-  const handleBrowseProjects = () => {
-    console.log("Browse all projects")
-    // Add navigation logic here
-  }
-
-  const handleViewDemo = () => {
-    console.log("View general demo")
-    // Add demo logic here
-  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950">
@@ -35,8 +27,8 @@ export default function Home() {
           subtitle="Turn your idea into a live product in days, not months. No hiring, no delays — just a production-ready app so you can start selling faster."
           primaryButtonText="Build Custom Project"
           secondaryButtonText="Hire Talent"
-          onPrimaryClick={handleBrowseProjects}
-          onSecondaryClick={handleViewDemo}
+          onPrimaryClick={() => router.push("/contact")}
+          onSecondaryClick={() => router.push("/hire-talent")}
         />
 
         <div id="projects">

@@ -20,8 +20,8 @@ const navItems = [
     link: "#projects",
   },
   {
-    name: "Pricing",
-    link: "#pricing",
+    name: "Hire Talent",
+    link: "/hire-talent",
   },
   {
     name: "About",
