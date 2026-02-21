@@ -1,171 +1,302 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
+import {
+  IconRocket,
+  IconCode,
+  IconBrandGithub,
+  IconPackage,
+  IconHeadset,
+  IconCurrencyRupee,
+  IconBolt,
+} from "@tabler/icons-react"
+
+/* ── Animated Headers ──────────────────────────────────────────────── */
+
+const LaunchHeader = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-900 to-neutral-800 overflow-hidden relative p-4">
+    {/* timeline track */}
+    <div className="absolute bottom-6 left-6 right-6 h-0.5 bg-white/10 rounded-full" />
+    {["Idea", "Build", "Deploy", "Live 🚀"].map((label, i) => (
+      <motion.div
+        key={label}
+        className="absolute bottom-3 flex flex-col items-center gap-1"
+        style={{ left: `${14 + i * 24}%` }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.4, duration: 0.4 }}
+      >
+        <span className="text-[10px] text-white/60">{label}</span>
+        <div className={`h-2.5 w-2.5 rounded-full ${i === 3 ? "bg-emerald-400" : "bg-white/30"}`} />
+      </motion.div>
+    ))}
+    <motion.div
+      className="absolute bottom-4 left-[14%]"
+      animate={{ x: ["0%", "186%"] }}
+      transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 1.2, ease: "easeInOut" }}
+    >
+      <div className="h-0.5 w-16 bg-gradient-to-r from-sky-400 to-transparent rounded-full" />
+    </motion.div>
+    {/* floating days badge */}
+    <motion.div
+      className="absolute top-4 right-4 rounded-full bg-sky-500/20 border border-sky-400/30 px-3 py-1 text-[11px] text-sky-300"
+      animate={{ scale: [1, 1.06, 1] }}
+      transition={{ duration: 2, repeat: Infinity }}
+    >
+      Live in days ✓
+    </motion.div>
+  </div>
+)
+
+const CodeHeader = () => {
+  const lines = [
+    { w: "w-24", color: "bg-sky-400/70" },
+    { w: "w-32", color: "bg-violet-400/70" },
+    { w: "w-20", color: "bg-emerald-400/70" },
+    { w: "w-28", color: "bg-amber-400/70" },
+    { w: "w-16", color: "bg-sky-400/70" },
+  ]
+  return (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-900 overflow-hidden p-4 font-mono">
+      <div className="flex items-center gap-1.5 mb-3 absolute top-4 left-4">
+        <span className="h-2 w-2 rounded-full bg-rose-400/80" />
+        <span className="h-2 w-2 rounded-full bg-amber-400/80" />
+        <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
+      </div>
+      <div className="mt-6 space-y-2 w-full">
+        {lines.map((line, i) => (
+          <motion.div
+            key={i}
+            className="flex items-center gap-2"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.2, duration: 0.3, repeat: Infinity, repeatDelay: lines.length * 0.2 + 1 }}
+          >
+            <span className="text-white/20 text-[10px] w-3">{i + 1}</span>
+            <div className={`h-1.5 ${line.w} rounded-full ${line.color}`} />
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const OwnershipHeader = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-900 overflow-hidden p-4">
+    <div className="flex gap-3 w-full items-center justify-center">
+      {["src/", "docs/", "LICENSE"].map((file, i) => (
+        <motion.div
+          key={file}
+          className="flex flex-col items-center gap-2"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.3 + 0.2, duration: 0.4 }}
+        >
+          <div className="h-10 w-10 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center text-lg">
+            {i === 0 ? "📁" : i === 1 ? "📄" : "✅"}
+          </div>
+          <span className="text-[10px] text-white/50">{file}</span>
+        </motion.div>
+      ))}
+    </div>
+    <motion.div
+      className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-emerald-400 border border-emerald-400/30 rounded-full px-3 py-0.5 bg-emerald-400/10"
+      animate={{ opacity: [0.6, 1, 0.6] }}
+      transition={{ duration: 2, repeat: Infinity }}
+    >
+      100% yours
+    </motion.div>
+  </div>
+)
+
+const IncludedHeader = () => {
+  const features = ["Auth", "Payments", "Dashboard", "Admin Panel", "API"]
+  return (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-900 overflow-hidden p-4">
+      <div className="grid grid-cols-2 gap-2 w-full content-start">
+        {features.map((f, i) => (
+          <motion.div
+            key={f}
+            className="flex items-center gap-2"
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.25, duration: 0.3, repeat: Infinity, repeatDelay: features.length * 0.25 + 1.5 }}
+          >
+            <span className="text-emerald-400 text-xs">✓</span>
+            <span className="text-[11px] text-white/70">{f}</span>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const SupportHeader = () => {
+  const messages = [
+    { text: "When can you deliver?", self: false },
+    { text: "Ready in 3 days 🚀", self: true },
+    { text: "Can you add a dashboard?", self: false },
+    { text: "Already included ✓", self: true },
+  ]
+  return (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-900 overflow-hidden p-3 flex-col gap-1.5">
+      {messages.map((msg, i) => (
+        <motion.div
+          key={i}
+          className={`max-w-[80%] rounded-2xl px-3 py-1.5 text-[10px] leading-snug ${
+            msg.self
+              ? "self-end rounded-tr-sm bg-sky-500/80 text-white"
+              : "self-start rounded-tl-sm bg-white/10 text-neutral-200"
+          }`}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.6, duration: 0.3, repeat: Infinity, repeatDelay: messages.length * 0.6 + 1 }}
+        >
+          {msg.text}
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
+const PricingHeader = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-900 overflow-hidden p-4 flex-col items-center justify-center gap-2">
+    <motion.div
+      className="text-3xl font-bold text-white"
+      animate={{ scale: [1, 1.05, 1] }}
+      transition={{ duration: 2, repeat: Infinity }}
+    >
+      ₹<motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        25,000
+      </motion.span>
+    </motion.div>
+    <div className="flex items-center gap-2">
+      <span className="text-white/40 line-through text-sm">₹50,000</span>
+      <motion.span
+        className="bg-emerald-400/20 text-emerald-400 text-[10px] rounded-full px-2 py-0.5 border border-emerald-400/30"
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      >
+        Save 50%
+      </motion.span>
+    </div>
+    <span className="text-white/30 text-[10px]">one-time · no subscription</span>
+  </div>
+)
+
+const CustomHeader = () => {
+  const steps = [
+    { label: "Requirement", pct: "w-full" },
+    { label: "Design", pct: "w-4/5" },
+    { label: "Dev", pct: "w-3/5" },
+    { label: "Deploy", pct: "w-2/5" },
+  ]
+  return (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-900 overflow-hidden p-4">
+      <div className="space-y-3 w-full">
+        {steps.map((step, i) => (
+          <motion.div
+            key={step.label}
+            className="flex items-center gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: i * 0.2 }}
+          >
+            <span className="text-[10px] text-white/40 w-20 shrink-0">{step.label}</span>
+            <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-sky-400 to-violet-400"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ delay: i * 0.3 + 0.3, duration: 0.6, repeat: Infinity, repeatDelay: steps.length * 0.3 + 1.5 }}
+              />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/* ── Items ─────────────────────────────────────────────────────────── */
+
+const items = [
+  {
+    title: "Ship in Days, Not Months",
+    description: "Skip months of development. Get a production-ready app instantly and go from idea to live product in days.",
+    header: <LaunchHeader />,
+    icon: <IconRocket className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Battle-Tested Codebases",
+    description: "Every project is built with modern technologies — Next.js, TypeScript, Tailwind — clean, scalable, and ready to extend.",
+    header: <CodeHeader />,
+    icon: <IconCode className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Full Source Code Ownership",
+    description: "You own everything — the code, the docs, the deployment. No lock-in, no subscriptions.",
+    header: <OwnershipHeader />,
+    icon: <IconBrandGithub className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Everything Included Out of the Box",
+    description: "Auth, payments, dashboards, admin panels — all wired up and ready. No extra setup, no missing pieces.",
+    header: <IncludedHeader />,
+    icon: <IconPackage className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Dedicated Support & Handoff",
+    description: "We don't just hand over a zip file. We walk you through the code, help with deployment, and stay available for questions.",
+    header: <SupportHeader />,
+    icon: <IconHeadset className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Founder-Friendly Pricing",
+    description: "Transparent, one-time pricing in INR. No hidden costs, no ongoing fees — just the product you need at a price that makes sense.",
+    header: <PricingHeader />,
+    icon: <IconCurrencyRupee className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Fast Customisations on Demand",
+    description: "Need tweaks? We offer quick customisation sprints to tailor any project to your exact business needs.",
+    header: <CustomHeader />,
+    icon: <IconBolt className="h-4 w-4 text-neutral-500" />,
+  },
+]
+
+/* ── Section ───────────────────────────────────────────────────────── */
 
 export function WhyChooseUsBento() {
   return (
     <section className="relative overflow-hidden bg-white py-24 dark:bg-neutral-950">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-64 w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.25),transparent_70%)] opacity-80 dark:bg-[radial-gradient(circle,rgba(14,165,233,0.2),transparent_70%)]" />
-        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(rgba(15,23,42,0.08)_1px,transparent_1px)] [background-size:28px_28px] dark:opacity-10" />
-        <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(15,23,42,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.08)_1px,transparent_1px)] [background-size:120px_120px] dark:opacity-10" />
-      </div>
       <div className="relative mx-auto max-w-7xl px-4">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center mb-14">
           <h2 className="text-4xl font-semibold text-zinc-900 md:text-5xl dark:text-white">
             Why choose us over others?
           </h2>
           <p className="mt-4 text-lg text-zinc-600 dark:text-neutral-300">
-            Production-ready full-stack builds plus hands-on delivery support{" "}
-            {"\u2014"} buy a proven codebase or get it customized.
+            Production-ready builds plus hands-on delivery — buy a proven codebase or get it customized.
           </p>
         </div>
-        <BentoGrid className="mt-14">
-          <BentoGridItem
-            className="md:col-span-2"
-            title="Ready Codebase"
-            description="Launch faster with a reliable, production-ready foundation."
-            header={<ReadyCodebaseHeader />}
-          />
-          <BentoGridItem
-            title="Custom Integrations"
-            description="We add payments, auth, dashboards, and webhooks to fit your business."
-            header={<IntegrationsHeader />}
-          />
-          <BentoGridItem
-            title="Fast Deployments"
-            description="We set up envs, CI/CD, and predictable releases."
-            header={<DeploymentsHeader />}
-          />
-          <BentoGridItem
-            title="Full Ownership"
-            description="You keep the code, docs, and handoff to maintain with confidence."
-            header={<OwnershipHeader />}
-          />
-          <BentoGridItem
-            title="Smooth Migrations"
-            description="Move to Next.js or a new stack without breaking users or SEO."
-            header={<MigrationsHeader />}
-          />
+        <BentoGrid className="max-w-4xl mx-auto">
+          {items.map((item, i) => (
+            <BentoGridItem
+              key={i}
+              title={item.title}
+              description={item.description}
+              header={item.header}
+              icon={item.icon}
+              className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+            />
+          ))}
         </BentoGrid>
       </div>
     </section>
   )
 }
-
-const ReadyCodebaseHeader = () => (
-  <div className="h-40 rounded-xl border border-white/10 bg-white/5 p-4 dark:border-neutral-800 dark:bg-neutral-900/60">
-    <div className="flex items-center gap-2">
-      <span className="h-2 w-2 rounded-full bg-emerald-400/90" />
-      <span className="h-2 w-2 rounded-full bg-amber-400/90" />
-      <span className="h-2 w-2 rounded-full bg-rose-400/90" />
-      <span className="ml-auto h-2 w-16 rounded-full bg-white/10" />
-    </div>
-    <div className="mt-4 space-y-2">
-      {[
-        "w-28",
-        "w-32",
-        "w-24",
-        "w-36",
-      ].map((width, index) => (
-        <div key={index} className="flex items-center gap-3">
-          <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
-          <span className={`h-2 ${width} rounded-full bg-white/15`} />
-          <span className="ml-auto h-2 w-10 rounded-full bg-white/10" />
-        </div>
-      ))}
-    </div>
-  </div>
-)
-
-const IntegrationsHeader = () => (
-  <div className="h-40 rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-4 dark:border-neutral-800 dark:from-neutral-900/70">
-    <div className="flex flex-col gap-2 text-[11px] leading-snug">
-      <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-white/10 px-3 py-2 text-neutral-200">
-        Checkout isn{"\u2019"}t working in production {"\u2014"} please help.
-      </div>
-      <div className="max-w-[85%] self-end rounded-2xl rounded-tr-sm bg-sky-500/80 px-3 py-2 text-white">
-        Share logs + env; we{"\u2019"}ll repro in staging.
-      </div>
-      <div className="max-w-[85%] self-end rounded-2xl rounded-tr-sm bg-sky-500/80 px-3 py-2 text-white">
-        Quick call to patch the deployment.
-      </div>
-    </div>
-  </div>
-)
-
-const DeploymentsHeader = () => (
-  <div className="h-40 rounded-xl border border-white/10 bg-white/5 p-4 dark:border-neutral-800 dark:bg-neutral-900/60">
-    <div className="flex items-center justify-between">
-      <span className="h-2 w-28 rounded-full bg-white/15" />
-      <span className="h-2 w-10 rounded-full bg-emerald-400/80" />
-    </div>
-    <div className="mt-4 space-y-3">
-      <div className="h-2 rounded-full bg-white/10">
-        <div className="h-2 w-4/5 rounded-full bg-sky-400/70" />
-      </div>
-      <div className="h-2 rounded-full bg-white/10">
-        <div className="h-2 w-3/5 rounded-full bg-indigo-400/70" />
-      </div>
-      <div className="h-2 rounded-full bg-white/10">
-        <div className="h-2 w-2/5 rounded-full bg-emerald-400/70" />
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-emerald-400/70" />
-        <span className="h-2 w-20 rounded-full bg-white/10" />
-        <span className="ml-auto h-2 w-12 rounded-full bg-white/10" />
-      </div>
-    </div>
-  </div>
-)
-
-const OwnershipHeader = () => (
-  <div className="h-40 rounded-xl border border-white/10 bg-white/5 p-4 dark:border-neutral-800 dark:bg-neutral-900/60">
-      <div className="grid h-full grid-cols-3 gap-3">
-        <div className="rounded-lg border border-white/10 bg-white/5 p-3 dark:border-neutral-800 dark:bg-neutral-900/50">
-          <div className="h-6 w-6 rounded-md bg-white/15" />
-          <div className="mt-3 h-2 w-14 rounded-full bg-white/10" />
-          <div className="mt-2 h-2 w-10 rounded-full bg-white/10" />
-        </div>
-        <div className="rounded-lg border border-white/10 bg-white/5 p-3 dark:border-neutral-800 dark:bg-neutral-900/50">
-          <div className="h-6 w-6 rounded-md bg-white/15" />
-          <div className="mt-3 h-2 w-16 rounded-full bg-white/10" />
-          <div className="mt-2 h-2 w-8 rounded-full bg-white/10" />
-        </div>
-        <div className="rounded-lg border border-white/10 bg-white/5 p-3 dark:border-neutral-800 dark:bg-neutral-900/50">
-          <div className="relative h-6 w-6 rounded-full border border-white/30">
-            <div className="absolute left-1/2 top-1 h-3 w-3 -translate-x-1/2 rounded-t-full border border-white/30" />
-          </div>
-        <div className="mt-3 h-2 w-12 rounded-full bg-white/10" />
-        <div className="mt-2 h-2 w-9 rounded-full bg-white/10" />
-      </div>
-    </div>
-  </div>
-)
-
-const MigrationsHeader = () => (
-  <div className="flex h-40 items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4">
-    <div className="space-y-2">
-      <p className="text-[10px] uppercase tracking-wider text-white/40">Legacy</p>
-      <div className="flex gap-1">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <span key={index} className="h-2 w-2 rounded-full bg-white/20" />
-        ))}
-      </div>
-      <div className="h-2 w-16 rounded-full bg-white/10" />
-    </div>
-    <div className="flex flex-1 items-center gap-2">
-      <div className="h-px flex-1 bg-gradient-to-r from-white/10 via-white/50 to-white/10" />
-      <div className="h-2 w-2 rotate-45 border-r border-t border-white/50" />
-    </div>
-    <div className="space-y-2 text-right">
-      <p className="text-[10px] uppercase tracking-wider text-white/40">Next.js</p>
-      <div className="flex justify-end gap-1">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <span key={index} className="h-2 w-2 rounded-full bg-sky-400/70" />
-        ))}
-      </div>
-      <div className="ml-auto h-2 w-16 rounded-full bg-white/10" />
-    </div>
-  </div>
-)

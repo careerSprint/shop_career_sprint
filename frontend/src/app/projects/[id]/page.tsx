@@ -184,7 +184,7 @@ export default function ProjectDetailPage() {
                 <Button
                   variant="outline"
                   className="rounded-full border-neutral-200 bg-white text-sm text-neutral-900 shadow-sm hover:bg-neutral-50"
-                  onClick={() => router.push(`/${project.id}`)}
+                  onClick={handleLivePreview}
                   type="button"
                 >
                   Live Preview
@@ -203,7 +203,7 @@ export default function ProjectDetailPage() {
       <section id="preview" className="container mx-auto px-4 pb-16">
         <h2 className="mb-6 text-2xl font-semibold text-neutral-900">Live Preview</h2>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {(gallery[projectId]).map((image) => (
+          {(gallery[projectId] ?? previewImages).map((image) => (
             <figure
               key={image.src}
               className="overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 text-white shadow-lg"
